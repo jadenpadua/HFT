@@ -1,4 +1,6 @@
-// 2 ptrs, right ptr keeps moving along the prices, left ptr updates to right ptr if right ptr price is lower
+/**
+* @description: 2 ptrs, right ptr keeps moving along the prices, left ptr updates to right ptr if right ptr price is lower
+*/
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
