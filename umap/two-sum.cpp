@@ -1,4 +1,6 @@
-// create umap where key is target sum to find & value is the index where that target sum is located
+/*
+* @description: create umap where key is target sum to find & value is the index where that target sum is located
+*/
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
