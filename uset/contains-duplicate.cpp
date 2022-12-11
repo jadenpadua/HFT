@@ -1,4 +1,6 @@
-// keep putting each num in a uset, if num is already in the uset then duplicate found and return true
+/*
+* @description: keep putting each num in a uset, if num is already in the uset then duplicate found and return true
+*/
 class Solution {
 public:
     bool containsDuplicate(vector<int>& nums) {
