@@ -9,14 +9,18 @@
  */
 
 class Solution {
-public:
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if((root->val > p->val) && (root->val > q->val)) {
-            return lowestCommonAncestor(root->left, p, q);
-        } 
-        if((root->val < p->val) && (root->val < q->val)) {
-            return lowestCommonAncestor(root->right, p, q);
+private:
+    TreeNode* dfs(TreeNode*& node, TreeNode* p, TreeNode* q) {
+        if(node->val > p->val && node->val > q->val) {
+            return dfs(node->left, p, q);
         }
-        return root;
+        else if(node->val < p->val && node->val < q->val) {
+            return dfs(node->right, p, q);
+        }
+        return node;
+    }
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {        
+        return dfs(root, p, q);
     }
 };
