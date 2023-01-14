@@ -11,17 +11,19 @@
  */
 class Solution {
 private:
-    void postOrder(TreeNode*& node) {
-        if(!node) return;
+    int postOrder(TreeNode*& node) {
+        if(!node) return 0;
 
-        postOrder(node->left);
-        postOrder(node->right);
-        swap(node->left, node->right);
+        int lDepth = postOrder(node->left);
+        int rDepth = postOrder(node->right);
+
+        return max(lDepth, rDepth) + 1;
     }
 public:
-    TreeNode* invertTree(TreeNode* root) {
-        if(!root) return NULL;
-        postOrder(root);
-        return root;
+    int maxDepth(TreeNode* root) {
+        if(!root) return 0;
+
+        int maxDepth = postOrder(root);
+        return maxDepth;
     }
 };
