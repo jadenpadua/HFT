@@ -10,22 +10,20 @@
  * };
  */
 class Solution {
-public:
-
-    int dfs(TreeNode* node, int &diameter) {
+private:
+    int postOrder(TreeNode*& node, int& maxDiameter) {
         if(!node) return 0;
 
-        int leftDist = dfs(node->left, diameter);
-        int rightDist = dfs(node->right, diameter);
-        diameter = max(diameter, leftDist + rightDist);
+        int left = postOrder(node->left, maxDiameter);
+        int right = postOrder(node->right, maxDiameter);
+        maxDiameter = max(maxDiameter, left + right);
 
-        return max(leftDist, rightDist) + 1;
-
-    } 
+        return max(left, right) + 1;
+    }
+public:
     int diameterOfBinaryTree(TreeNode* root) {
-        int diameter {};
-        dfs(root, diameter);
-        return diameter; 
-        
+        int maxDiameter {};
+        postOrder(root, maxDiameter);
+        return maxDiameter;
     }
 };
