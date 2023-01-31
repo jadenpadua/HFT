@@ -1,26 +1,29 @@
 class UnionFind {
+private:
+    vector<int> parents, rank;
+
 public:
     UnionFind(int n) {
         rank = vector<int>(n, 1);
-        f.resize(n);
-        for (int i = 0; i < n; ++i) f[i] = i;
+        parents.resize(n);
+        for (int i = 0; i < n; ++i) parents[i] = i;
     }
     
-    int Find(int x) {
-        if (x == f[x]) return x;
-        else return f[x] = Find(f[x]);
+    int find(int x) {
+        if (x == parents[x]) return x;
+        else return parents[x] = find(parents[x]);
     }
     
-    void Union(int x, int y) {
-        int fx = Find(x), fy = Find(y);
-        if (fx == fy) return;
-        if (rank[fx] > rank[fy]) swap(fx, fy);
-        f[fx] = fy;
-        if (rank[fx] == rank[fy]) rank[fy]++;
+    void unify(int x, int y) {
+        int parX = find(x), parY = find(y);
+        if (parX == parY) return;
+        if (rank[parX] > rank[parY]) swap(parX, parY);
+
+        parents[parX] = parY;
+        if (rank[parX] == rank[parY]) rank[parY]++;
     }
     
-private:
-    vector<int> f, rank;
+
 };
 
 
@@ -29,10 +32,10 @@ public:
     int minimumHammingDistance(vector<int>& source, vector<int>& target, vector<vector<int>>& allowedSwaps) {
         const int n = source.size();
         UnionFind uf(n);
-        for (const auto& v : allowedSwaps) uf.Union(v[0], v[1]);
+        for (const auto& swap : allowedSwaps) uf.unify(swap[0], swap[1]);
         
         unordered_map<int, vector<int>> components;
-        for (int i = 0; i < n; ++i) components[uf.Find(i)].push_back(i);
+        for (int i = 0; i < n; ++i) components[uf.find(i)].push_back(i);
 
         int res = 0;
         for (const auto& it: components) {
