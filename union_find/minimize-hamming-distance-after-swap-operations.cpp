@@ -22,10 +22,7 @@ public:
         parents[parX] = parY;
         if (rank[parX] == rank[parY]) rank[parY]++;
     }
-    
-
 };
-
 
 class Solution {
 public:
